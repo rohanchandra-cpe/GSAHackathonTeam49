@@ -1,0 +1,3 @@
+USDA Programs = https://www.rd.usda.gov/programs-services/single-family-housing-programs/single-family-housing-direct-home-loans
+Single Family Loan Program = https://www.rd.usda.gov/programs-services/single-family-housing-programs/single-family-housing-guaranteed-loan-program
+Farm Loan Program = https://www.fsa.usda.gov/programs-and-services/farm-loan-programs/
