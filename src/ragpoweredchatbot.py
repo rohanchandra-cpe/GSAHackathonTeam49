@@ -6,7 +6,6 @@ from unstructured.partition.html import partition_html
 from unstructured.chunking.title import chunk_by_title
 
 # Cohere API key
-# api_key = 'BfTJNyke3jghhXpgRy6R1SSl8fRpso5o02i78moX'
 api_key = 'LUKpC7OqyfZK5e0ht4gZccgma9hS28mptzYSBz3o'
 
 # Set up Cohere client
@@ -107,20 +106,12 @@ class Vectorstore:
             texts=[query], model="embed-english-v3.0", input_type="search_query"
         ).embeddings
 
-        #print ("Raw query results:")
-        #print (self.idx.knn_query(query_emb, k=self.retrieve_top_k))
         doc_ids = self.idx.knn_query(query_emb, k=self.retrieve_top_k)[0][0]
-        
-        #print ("Doc IDs:")
-        #print (doc_ids)
 
         # Reranking
         rank_fields = ["title", "text"] # We'll use the title and text fields for reranking
 
         docs_to_rerank = [self.docs[doc_id] for doc_id in doc_ids]
-
-        #print ("Documents to rerank:")
-        #print (docs_to_rerank)
 
         rerank_results = co.rerank(
             query=query,
@@ -131,12 +122,6 @@ class Vectorstore:
         )
     
         doc_ids_reranked = [doc_ids[result.index] for result in rerank_results.results]
-        #print("doc_ids_reranked:")
-        #print(doc_ids_reranked)
-        #print(rerank_results.results[0].index)
-        #print(rerank_results.results[0].relevance_score)
-        #print ("Re-ranked Documents:")
-        #print (rerank_results)
         
         docs_retrieved = []
         for doc_id in doc_ids_reranked:
@@ -149,89 +134,6 @@ class Vectorstore:
             )
 
         return docs_retrieved
-    
-class Chatbot:
-    def __init__(self, vectorstore: Vectorstore):
-        """
-        Initializes an instance of the Chatbot class.
-
-        Parameters:
-        vectorstore (Vectorstore): An instance of the Vectorstore class.
-
-        """
-        self.vectorstore = vectorstore
-        self.conversation_id = str(uuid.uuid4())
-        
-    def run(self):
-            """
-            :param self: 
-            :return: 
-            
-            Runs the chatbot application
-            """
-            while True:
-                # Get the user message
-                message = input ("User: ")
-                
-                # Typing "quit" ends the conversation
-                if message.lower() == "quit":
-                    print ("Ending chat.")
-                    break
-                else:
-                    print (f"User: {message}")
-
-                # Generate search queries, if any
-                response = co.chat(message=message, search_queries_only=True)
-                
-                # if there are search queries, retrieve document chunks and respond
-                if response.search_queries:
-                    print ("Retrieving information...", end="")
-                    
-                    # Retrieve document chunks for each query
-                    documents = []
-                    for query in response.search_queries:
-                        documents.extend(self.vectorstore.retrieve(query.text))
-                    
-                    # Use document chunks to respond
-                    response = co.chat_stream(
-                        message=message,
-                        model='command-r',
-                        documents=documents,
-                        conversation_id=self.conversation_id,
-                    )
-                # If there is no search query, directly respond
-                else:
-                    response = co.chat_stream(
-                        message=message,
-                        model="command-r",
-                        conversation_id=self.conversation_id,
-                    )
-
-                # Print the chatbot response, citations, and documents
-                print("\nChatbot:")
-                citations = []
-                cited_documents = []
-
-                # Display response
-                for event in response:
-                    if event.event_type == "text-generation":
-                        print(event.text, end="")
-                    elif event.event_type == "citation-generation":
-                        citations.extend(event.citations)
-                    elif event.event_type == "search-results":
-                        cited_documents = event.documents
-
-                # Display citations and source documents
-                if citations:
-                    print("\n\nCITATIONS:")
-                    for citation in citations:
-                        print(citation)
-
-                    print("\nDOCUMENTS:")
-                    for document in cited_documents:
-                        print(document)
-
-                print(f"\n{'-'*100}\n")
 
 def init_chatbot(vectorstore: Vectorstore):
 
@@ -253,15 +155,6 @@ def run_chatbot(vectorstore, conversation_id, message):
             
     Runs the chatbot application
     """
-    # # Get the user message
-    # message = input ("User: ")
-                
-    # # Typing "quit" ends the conversation
-    # if message.lower() == "quit":
-    #     print ("Ending chat.")
-    #     return
-    # else:
-    #     print (f"User: {message}")
 
     # Generate search queries, if any
     response = co.chat(message=message, search_queries_only=True)
@@ -292,41 +185,5 @@ def run_chatbot(vectorstore, conversation_id, message):
     
     return response
 
-    # # Print the chatbot response, citations, and documents
-    # print("\nChatbot:")
-    # citations = []
-    # cited_documents = []
-
-    # # Display response
-    # for event in response:
-    #     if event.event_type == "text-generation":
-    #         print(event.text, end="")
-    #     elif event.event_type == "citation-generation":
-    #         citations.extend(event.citations)
-    #     elif event.event_type == "search-results":
-    #         cited_documents = event.documents
-
-    # # Display citations and source documents
-    # if citations:
-    #     print("\n\nCITATIONS:")
-    #     for citation in citations:
-    #         print(citation)
-
-    #     print("\nDOCUMENTS:")
-    #     for document in cited_documents:
-    #         print(document)
-
-    # print(f"\n{'-'*100}\n")
-
-
 # process the documents
 test_vectorstore = Vectorstore(raw_documents)
-
-# test retrieval
-# test_vectorstore.retrieve("multi-head attention definition")
-# test_vectorstore.retrieve("strawberry")
-
-# Run the chatbot
-# chatbot = Chatbot(test_vectorstore)
-
-# chatbot.run()
