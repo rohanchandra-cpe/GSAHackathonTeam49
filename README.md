@@ -1,3 +1,5 @@
+# Introduction 
+
 We were challenged to provide some ways so USDA.gov could be made AI agent-friendly and LLMs could learn from it easily,
 Our analysis of the site revealed a wealth of resources, including articles, PDFs, HTML, and FAQs. While the site does have a search capability, the results often return entire documents, requiring USDA users to sift through large amounts of text. This can be time-consuming and discouraging for users.
 The solution we are providing is a Retrieval Augmented Generation. Where the documents and all the information from the USDA site could be indexed into Vector space and an LLM could use this information to provide precise answers to a user.
@@ -8,6 +10,6 @@ This index was then used in RAG to provide much better and precise answers to th
 We created a simple app using Streamlit to try the USDA AI agent we created using a browser.
 
 
-Usage:
+# Usage:
 Run from the home directory
 Streamlit run src/usda_streamlit_app.py
