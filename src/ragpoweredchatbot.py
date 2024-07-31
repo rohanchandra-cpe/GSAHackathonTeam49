@@ -6,7 +6,8 @@ from unstructured.partition.html import partition_html
 from unstructured.chunking.title import chunk_by_title
 
 # Cohere API key
-api_key = 'BfTJNyke3jghhXpgRy6R1SSl8fRpso5o02i78moX'
+# api_key = 'BfTJNyke3jghhXpgRy6R1SSl8fRpso5o02i78moX'
+api_key = 'LUKpC7OqyfZK5e0ht4gZccgma9hS28mptzYSBz3o'
 
 # Set up Cohere client
 co = cohere.Client(api_key)
