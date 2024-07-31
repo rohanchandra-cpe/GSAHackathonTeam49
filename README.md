@@ -6,6 +6,8 @@ We parsed, chunked, and scraped information using the Python unstructured librar
 The embeddings were then indexed using a vector indexing library Hnswlib (in production a vector DB would be used instead such as Weaviate or Pinecone, but for this hackathon, we used an in-memory indexing)
 This index was then used in RAG to provide much better and precise answers to the users.
 We created a simple app using Streamlit to try the USDA AI agent we created using a browser.
+
+
 Usage:
 Run from the home directory
 Streamlit run src/usda_streamlit_app.py
