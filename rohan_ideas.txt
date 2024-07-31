@@ -1,0 +1,28 @@
+- Consumers
+   - Food safety
+   - Nutrition
+   - Agri. Products
+   - Concerns/Inquiries
+   - Impact - Informed choices about food/agri. Enhance health + wellbeing
+- Educators + Students
+   - curricula
+   - teach about food safety, nutrition, agriculture
+   - rural dev.
+   - research proj. + assign.
+   - impact - authoritative info, enrich edu., increase awareness
+- Journalists
+   - agri. trends, policy changes, food safety issues
+   - context + insight
+   - impact - increase public understanding, transparency + accountability
+
+Ideas.
+1. Strealit - make app where you can choose persona
+Based on persona, it uses a different trained chatbot
+Dashboard - offers Ideas
+e.g. journalist
+    Shows relevant articles about latest agri. events
+    writes sample copy with citations
+Educator
+    Shows field trip opportunities
+    Suggests science projects
+    curricula + sample lesson plans
