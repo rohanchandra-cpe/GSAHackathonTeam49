@@ -6,21 +6,21 @@ from unstructured.partition.html import partition_html
 from unstructured.chunking.title import chunk_by_title
 
 # Cohere API key
-api_key = 'LUKpC7OqyfZK5e0ht4gZccgma9hS28mptzYSBz3o'
+api_key = 'yCtarI9Timle3sifbmKfgj2m3tgD9ntkJrmsf9H2'
 
 # Set up Cohere client
 co = cohere.Client(api_key)
 
 raw_documents = [
-    {
-        "title": "Food Supply Chains",
-        "url": "https://www.usda.gov/coronavirus/food-supply-chain"},
-    {
-        "title": "USDA Programs",
-        "url": "https://www.rd.usda.gov/programs-services/single-family-housing-programs/single-family-housing-direct-home-loans"},
-    {
-        "title": "Funding Opportunities",
-        "url": "https://www.usda.gov/media/press-releases/2022/08/24/usda-announces-550-million-american-rescue-plan-funding-projects"},
+    # {
+    #     "title": "Food Supply Chains",
+    #     "url": "https://www.usda.gov/coronavirus/food-supply-chain"},
+    # {
+    #     "title": "USDA Programs",
+    #     "url": "https://www.rd.usda.gov/programs-services/single-family-housing-programs/single-family-housing-direct-home-loans"},
+    # {
+    #     "title": "Funding Opportunities",
+    #     "url": "https://www.usda.gov/media/press-releases/2022/08/24/usda-announces-550-million-american-rescue-plan-funding-projects"},
     # {
     #     "title": "Single Family Loan Program",
     #     "url": "https://www.rd.usda.gov/programs-services/single-family-housing-programs/single-family-housing-guaranteed-loan-program"},
@@ -30,6 +30,14 @@ raw_documents = [
     # {
     #     "title": "Transformer Models",
     #     "url": "https://docs.cohere.com/docs/transformer-models"}
+    {
+        "title": "Federal Government Chrome",
+        "url": "https://www.cnn.com/2024/11/20/business/google-sell-chrome-justice-department/index.html"},
+    {
+        "title": "Senate Absences",
+        "url": "https://www.cnn.com/2024/11/20/politics/judges-trump-biden-missing-senators/index.html"
+    }
+
 ]
 
 class Vectorstore:
